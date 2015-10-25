@@ -7,18 +7,22 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+  <%= render 'layouts/navigation' %>
 
-<% if current_user %>
-  <%= link_to "Edit Profile", edit_user_registration_path %>
-  <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= link_to "Sign Up", new_user_registration_path %>
-  <%= link_to "Login", new_user_session_path %>
-<% end %>
+  <% if notice %>
+      <div class="alert alert-success text-center">
+        <%= notice %>
+      </div>
+  <% end %>
 
-<%= yield %>
+  <% if alert %>
+    <div class="alert alert-danger text-center">
+      <%= alert %>
+    </div>
+  <% end %>
 
+  <div class="container">
+    <%= yield %>
+  </div>
 </body>
 </html>
