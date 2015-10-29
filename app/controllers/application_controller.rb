@@ -5,10 +5,18 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def auth_user!(opts = {})
+    if admin_signed_in?
+      authenticate_admin!
+    else
+      authenticate_user!
+    end
+  end
+
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << :name
-    devise_parameter_sanitizer.for(:account_update) << :name
+    devise_parameter_sanitizer.for(:sign_up) << [:name, :first_name, :last_name, :birthday, :avatar, :passport]
+    devise_parameter_sanitizer.for(:account_update) << [:name, :first_name, :last_name, :birthday, :avatar, :passport]
   end
 end
